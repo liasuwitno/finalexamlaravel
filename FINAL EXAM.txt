@@ -1,0 +1,37 @@
+1. Jenis Validasi di Laravel:
+required: Memastikan data yang dikirim tidak boleh kosong.
+integer: Memastikan data adalah bilangan bulat.
+numeric: Memastikan data berupa angka.
+max:10: Membatasi nilai maksimal data hingga 10.
+min:8: Membatasi nilai minimal data tidak kurang dari 8.
+url: Memastikan data yang dimasukkan adalah format URL.
+
+Contoh penggunaan nya :
+public function store(Request $request)
+{
+    $validated = $request->validate([
+        'name' => 'required|max:50',  
+        'price' => 'required|numeric|min:8|max:10',
+        'category_id' => 'required|integer', 
+        'website' => 'required|url', 
+    ]);
+
+    Product::create($validated);
+
+    return response()->json(['message' => 'Product berhasil disimpan!'], 201);
+}
+
+2. Langkah Implementasi User dengan Middleware:
+
+Buat tabel dan model untuk User.
+Tambahkan fitur Register, Login, dan Logout pada UserController.
+Gunakan middleware untuk API dan masukkan route produk ke middleware tersebut agar hanya bisa diakses setelah login.
+Setelah login, user akan menerima token dari endpoint.
+Informasi akun yang disimpan meliputi: username, email, password (dengan hash), token, serta waktu dibuat dan diperbarui.
+
+3. Implementasi API untuk Pencarian dan Penyortiran:
+
+Tentukan endpoint API (Contoh: api/products untuk produk).
+Tambahkan fitur query parameter di controller untuk melakukan pencarian (search) dan penyortiran (sorting). Gunakan kondisi untuk memisahkan logika keduanya.
+Kembalikan hasil sebagai data dalam format JSON.
+Pastikan semua operasi CRUD berjalan dengan baik menggunakan try-catch atau error handling untuk mendeteksi jika ada masalah.
